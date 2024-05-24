@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed := 3000
+@export var speed := 6000
 @onready var animated_sprite = $AnimatedSprite2D
 enum {LEFT,RIGHT,UP,DOWN}
 var faces = {LEFT:false,RIGHT:false, UP:false, DOWN:false}
