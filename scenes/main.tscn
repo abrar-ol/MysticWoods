@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://sii7iki2tmdb"]
+[gd_scene load_steps=10 format=3 uid="uid://sii7iki2tmdb"]
 
 [ext_resource type="Texture2D" uid="uid://cohc3ny0omtct" path="res://assets/tilesets/grass.png" id="1_3dn0b"]
 [ext_resource type="PackedScene" uid="uid://b82kca01131vk" path="res://scenes/player.tscn" id="1_vq8q0"]
 [ext_resource type="Texture2D" uid="uid://d3dmxh1qxhwsx" path="res://assets/objects/objects.png" id="2_1q883"]
 [ext_resource type="Texture2D" uid="uid://cdg00sq253ncc" path="res://assets/tilesets/plains.png" id="3_d46th"]
+[ext_resource type="PackedScene" uid="uid://b017n8ogbo2qe" path="res://scenes/enemy.tscn" id="5_y21jn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2f58y"]
 texture = ExtResource("1_3dn0b")
@@ -136,6 +137,7 @@ texture = ExtResource("3_d46th")
 
 [sub_resource type="TileSet" id="TileSet_1jgr3"]
 physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_2f58y")
 sources/1 = SubResource("TileSetAtlasSource_srqhg")
 sources/2 = SubResource("TileSetAtlasSource_de3j1")
@@ -159,7 +161,7 @@ layer_2/z_index = 1
 layer_2/tile_data = PackedInt32Array(-65544, 655361, 7, 65545, 655361, 7, 28, 655361, 7, 851995, 655361, 7, 1310741, 655361, 7, 1310708, 655361, 7, 1048545, 655361, 7, 524268, 655361, 7, 131105, 1, 5, 655363, 1, 5, 655343, 1, 5, 1114130, 1, 5, 786458, 1, 5, 1310751, 393217, 7, 589796, 393217, 7, 589798, 393217, 7, 589800, 393217, 7, 589829, 524289, 6, 720925, 524289, 6, 1245217, 524289, 6, 327680, 1, 1, 917492, 1, 1, 1048583, 1, 1, -131053, 1, 1, 65514, 1, 1, 262128, 1, 1, 1310698, 393217, 7, 65513, 327681, 0, 983063, 327681, 0, 983027, 327681, 0, 131040, 1, 0, 262161, 1, 0, 196643, 1, 0, 1310701, 393217, 7, -131103, 1, 5, -983070, 655361, 7, -1114140, 1, 5, -458779, 524289, 6, -1048602, 524289, 6, -524313, 1, 5, -655381, 327681, 0, -262165, 655361, 7, -1179667, 1, 1, -983057, 393217, 7, -524304, 1, 0, -1179663, 1, 1, -983053, 393217, 7, -1179659, 1, 1, -983049, 393217, 7, -327689, 1, 5, -1179655, 1, 1, -327687, 524289, 6, -1048575, 655361, 7, -524281, 1, 5, -917495, 327681, 0, -524279, 524289, 6, -917494, 1, 1, -1114093, 524289, 6, -917485, 655361, 7, -917483, 1, 5, -1179623, 655361, 7, -1114084, 393217, 7, -589795, 1, 1, -1179616, 393217, 7, -458718, 327681, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_vq8q0")]
-position = Vector2(-229, 29)
+position = Vector2(31, -50)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)
@@ -168,3 +170,6 @@ limit_top = 0
 limit_right = 1136
 limit_bottom = 672
 position_smoothing_enabled = true
+
+[node name="Enemy" parent="." instance=ExtResource("5_y21jn")]
+position = Vector2(-23, -71)
