@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
 @export var speed := 6000
-@export var health = 100
+@export var health = 140
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var attack_cooldown = $attack_cooldown
 enum {LEFT,RIGHT,UP,DOWN}
-var faces = {LEFT:false,RIGHT:false, UP:false, DOWN:false}
+var faces = {LEFT:false,RIGHT:false, UP:false, DOWN:true}
 var is_enemy_attack = false
 var enemy_attack_cooldown = true
 var attack_ip = false
@@ -160,3 +160,4 @@ func _on_deal_attack_timer_timeout():
 	$deal_attack_timer.stop()
 	Global.player_current_attack = false
 	attack_ip = false
+

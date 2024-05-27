@@ -6,6 +6,7 @@ var player_chase = false
 var displacement= Vector2.ZERO
 var health = 100
 var player_inattack_zone = false
+var can_take_damage = true
 
 @onready var animated_sprite = $AnimatedSprite2D
 
@@ -48,20 +49,25 @@ func enemy():
 	pass
 
 func _on_enemy_hitbox_body_entered(body):
-	print(body)
 	if body.has_method("player"):
-		print("slime attacks player")
 		player_inattack_zone= true
 
 
 func _on_enemy_hitbox_body_exited(body):
 	if body.has_method("player"):
-		print("slime not in attack zone")
 		player_inattack_zone= false
 
 func deal_with_damage():
 	if player_inattack_zone and Global.player_current_attack:
-		health -= 20
-		print("slime health: ",health)
-		if health<0:
-			self.queue_free()
+		if can_take_damage:
+			health -= 20
+			$take_damage_cooldown.start()
+			can_take_damage = false
+			print("slime health: ",health)
+			if health<0:
+				self.queue_free()
+
+
+
+func _on_take_damage_cooldown_timeout():
+	can_take_damage = true
