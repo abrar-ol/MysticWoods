@@ -3,11 +3,12 @@ extends CharacterBody2D
 @export var speed := 6000
 @export var health = 100
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var enemy_attack_cooldown = $enemy_attack_cooldown
+@onready var attack_cooldown = $attack_cooldown
 enum {LEFT,RIGHT,UP,DOWN}
 var faces = {LEFT:false,RIGHT:false, UP:false, DOWN:false}
 var is_enemy_attack = false
-var is_enemy_attack_timeout = true
+var enemy_attack_cooldown = true
+var attack_ip = false
 
 func _physics_process(delta):
 	if health<=0 :
@@ -62,9 +63,6 @@ func _physics_process(delta):
 	move_and_slide()
 	enemy_attack()
 	attack()
-
-func attack():
-	pass
 	
 func get_input(delta):
 	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -72,30 +70,38 @@ func get_input(delta):
 	animated_sprite.flip_h = false		
 	
 	if  input_direction.x < 0:
-		animated_sprite.play("side_walk")
+		if !attack_ip :
+			animated_sprite.play("side_walk")
 		change_face(LEFT)
 		animated_sprite.flip_h = true		
 	elif input_direction.x > 0:
-		animated_sprite.play("side_walk")
+		if !attack_ip :
+			animated_sprite.play("side_walk")
 		change_face(RIGHT)
 	elif  input_direction.y < 0:
-		animated_sprite.play("back_walk")
+		if !attack_ip :
+			animated_sprite.play("back_walk")
 		change_face(UP)
 	elif  input_direction.y > 0 :
-		animated_sprite.play("front_walk")
+		if !attack_ip :
+			animated_sprite.play("front_walk")
 		change_face(DOWN)
 	
 	if input_direction.x == 0 and input_direction.y ==0:
 		if faces[LEFT]:
-			animated_sprite.play("side_idle")
+			if !attack_ip :
+				animated_sprite.play("side_idle")
 			animated_sprite.flip_h = true		
 			
 		elif  faces[RIGHT]:
-			animated_sprite.play("side_idle")
+			if !attack_ip :
+				animated_sprite.play("side_idle")
 		elif faces[UP]:
-			animated_sprite.play("back_idle")
+			if !attack_ip :
+				animated_sprite.play("back_idle")
 		else:
-			animated_sprite.play("front_idle")
+			if !attack_ip :
+				animated_sprite.play("front_idle")
 		
 func change_face(face):
 	#reset values
@@ -108,24 +114,49 @@ func _on_player_hitbox_body_entered(body):
 	if body.has_method("enemy"):
 		print("enemy entered")
 		is_enemy_attack = true
-		enemy_attack_cooldown.start()		
+		attack_cooldown.start()		
 
 
 func _on_player_hitbox_body_exited(body):
 	if body.has_method("enemy"):
 		print("enemy exited")		
 		is_enemy_attack = false 	
-		enemy_attack_cooldown.stop()
+		attack_cooldown.stop()
 		
 func enemy_attack():
-	if is_enemy_attack_timeout and is_enemy_attack :
+	if enemy_attack_cooldown and is_enemy_attack :
 		health = health - 20
 		print("OUCH!!   "+str(health))
-		is_enemy_attack_timeout = false
+		enemy_attack_cooldown = false
 
-
-func _on_enemy_attack_cooldown_timeout():
-	is_enemy_attack_timeout = true
+func attack():
+	if Input.is_action_just_pressed("attack"):
+		Global.player_current_attack = true
+		attack_ip = true
+		if faces[RIGHT]:
+			animated_sprite.flip_h = false	
+			animated_sprite.play("side_attack")
+			$deal_attack_timer.start()
+		if faces[LEFT]:
+			animated_sprite.flip_h = true	
+			animated_sprite.play("side_attack")
+			$deal_attack_timer.start()
+		if faces[DOWN]:
+			animated_sprite.play("front_attack")
+			$deal_attack_timer.start()
+		if faces[UP]:
+			animated_sprite.play("back_attack")
+			$deal_attack_timer.start()
 
 func player():
 	pass
+
+
+func _on_attack_cooldown_timeout():
+	enemy_attack_cooldown = true
+
+
+func _on_deal_attack_timer_timeout():
+	$deal_attack_timer.stop()
+	Global.player_current_attack = false
+	attack_ip = false

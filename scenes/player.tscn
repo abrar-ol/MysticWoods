@@ -418,7 +418,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2itww"]
-radius = 13.0
+radius = 14.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
@@ -441,17 +441,16 @@ offset = Vector2(0, -15)
 [node name="player_hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
-position = Vector2(0, -7)
+position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_2itww")
 
-[node name="enemy_attack_cooldown" type="Timer" parent="."]
-wait_time = 0.7
-
-[node name="attack_time" type="Timer" parent="."]
+[node name="deal_attack_timer" type="Timer" parent="."]
 wait_time = 0.5
-one_shot = true
+
+[node name="attack_cooldown" type="Timer" parent="."]
+wait_time = 0.5
 
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
-[connection signal="timeout" from="enemy_attack_cooldown" to="." method="_on_enemy_attack_cooldown_timeout"]
-[connection signal="timeout" from="attack_time" to="." method="_on_attack_time_timeout"]
+[connection signal="timeout" from="deal_attack_timer" to="." method="_on_deal_attack_timer_timeout"]
+[connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
