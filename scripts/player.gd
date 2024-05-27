@@ -1,11 +1,20 @@
 extends CharacterBody2D
 
 @export var speed := 6000
+@export var health = 100
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var enemy_attack_cooldown = $enemy_attack_cooldown
 enum {LEFT,RIGHT,UP,DOWN}
 var faces = {LEFT:false,RIGHT:false, UP:false, DOWN:false}
+var is_enemy_attack = false
+var is_enemy_attack_timeout = true
 
 func _physics_process(delta):
+	if health<=0 :
+		health = 0
+		print("Player died :(")
+		self.queue_free()
+		
 	######################### 1
 	#if Input.is_action_pressed("move_right"):
 		#velocity = Vector2(speed,0)
@@ -51,6 +60,11 @@ func _physics_process(delta):
 	######################### 3
 	get_input(delta)
 	move_and_slide()
+	enemy_attack()
+	attack()
+
+func attack():
+	pass
 	
 func get_input(delta):
 	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -89,3 +103,29 @@ func change_face(face):
 		faces[value] = false
 	
 	faces[face] = true
+
+func _on_player_hitbox_body_entered(body):
+	if body.has_method("enemy"):
+		print("enemy entered")
+		is_enemy_attack = true
+		enemy_attack_cooldown.start()		
+
+
+func _on_player_hitbox_body_exited(body):
+	if body.has_method("enemy"):
+		print("enemy exited")		
+		is_enemy_attack = false 	
+		enemy_attack_cooldown.stop()
+		
+func enemy_attack():
+	if is_enemy_attack_timeout and is_enemy_attack :
+		health = health - 20
+		print("OUCH!!   "+str(health))
+		is_enemy_attack_timeout = false
+
+
+func _on_enemy_attack_cooldown_timeout():
+	is_enemy_attack_timeout = true
+
+func player():
+	pass

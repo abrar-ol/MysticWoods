@@ -40,3 +40,6 @@ func _on_detection_area_body_exited(body):
 		else:
 			animated_sprite.play("side_idle")
 		
+
+func enemy():
+	pass
