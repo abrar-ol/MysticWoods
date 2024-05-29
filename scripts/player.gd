@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var speed := 6000
-@export var health = 140
+@export var health = 100
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var attack_cooldown = $attack_cooldown
 enum {LEFT,RIGHT,UP,DOWN}
@@ -9,6 +9,7 @@ var faces = {LEFT:false,RIGHT:false, UP:false, DOWN:true}
 var is_enemy_attack = false
 var enemy_attack_cooldown = true
 var attack_ip = false
+var is_regin_health_timer_start=false
 
 		
 
@@ -65,6 +66,7 @@ func _physics_process(delta):
 	move_and_slide()
 	enemy_attack()
 	attack()
+	update_health()
 	
 func get_input(delta):
 	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -127,7 +129,7 @@ func _on_player_hitbox_body_exited(body):
 		
 func enemy_attack():
 	if enemy_attack_cooldown and is_enemy_attack :
-		health = health - 20
+		health = health - 10
 		print("OUCH!!   "+str(health))
 		enemy_attack_cooldown = false
 
@@ -163,3 +165,22 @@ func _on_deal_attack_timer_timeout():
 	Global.player_current_attack = false
 	attack_ip = false
 
+func update_health():
+	var health_bar = $healthbar
+	health_bar.value=health
+	if health<100:
+		health_bar.visible = true
+		if !is_regin_health_timer_start:
+			is_regin_health_timer_start=true
+			$regin_health.start()
+	else:
+		health_bar.visible = false	
+		health=100
+		if is_regin_health_timer_start:
+			is_regin_health_timer_start=false
+			$regin_health.stop()
+		
+	
+
+func _on_regin_health_timeout():
+	health+=1

@@ -12,6 +12,7 @@ var can_take_damage = true
 
 
 func _physics_process(delta):
+	update_helth()
 	deal_with_damage()
 	if player_chase:
 		displacement = player.position-position
@@ -68,7 +69,14 @@ func deal_with_damage():
 				health = 0
 				self.queue_free()
 
-
-
 func _on_take_damage_cooldown_timeout():
 	can_take_damage = true
+
+func update_helth():
+	var health_bar = $healthbar
+	health_bar.value=health
+	if health>=100:
+		health_bar.visible = false
+	else:
+		health_bar.visible = true
+		

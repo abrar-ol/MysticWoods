@@ -11,7 +11,8 @@ func _ready():
 
 func _process(delta):
 	change_scene()
-	$Player/camera.reset_smoothing()
+	if is_instance_valid($Player/camera):
+		$Player/camera.reset_smoothing()
 
 func _on_cliffside_transition_area_body_entered(body):
 	if body.has_method("player"):
