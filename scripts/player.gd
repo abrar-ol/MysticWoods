@@ -10,6 +10,8 @@ var is_enemy_attack = false
 var enemy_attack_cooldown = true
 var attack_ip = false
 
+		
+
 func _physics_process(delta):
 	if health<=0 :
 		health = 0
@@ -63,7 +65,6 @@ func _physics_process(delta):
 	move_and_slide()
 	enemy_attack()
 	attack()
-	current_camera()
 	
 func get_input(delta):
 	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -162,10 +163,3 @@ func _on_deal_attack_timer_timeout():
 	Global.player_current_attack = false
 	attack_ip = false
 
-func current_camera():
-	if Global.current_scene == "main":
-		$main_camera.enabled = true
-		$cliffside_camera.enabled = false
-	elif Global.current_scene == "cliff_side":
-		$main_camera.enabled = false
-		$cliffside_camera.enabled = true
