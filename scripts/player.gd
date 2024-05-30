@@ -10,9 +10,7 @@ var is_enemy_attack = false
 var enemy_attack_cooldown = true
 var attack_ip = false
 var is_regin_health_timer_start=false
-
 		
-
 func _physics_process(delta):
 	if health<=0 :
 		health = 0
@@ -67,7 +65,7 @@ func _physics_process(delta):
 	enemy_attack()
 	attack()
 	update_health()
-	
+
 func get_input(delta):
 	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input_direction * speed * delta
@@ -120,7 +118,6 @@ func _on_player_hitbox_body_entered(body):
 		is_enemy_attack = true
 		attack_cooldown.start()		
 
-
 func _on_player_hitbox_body_exited(body):
 	if body.has_method("enemy"):
 		print("enemy exited")		
@@ -155,10 +152,8 @@ func attack():
 func player():
 	pass
 
-
 func _on_attack_cooldown_timeout():
 	enemy_attack_cooldown = true
-
 
 func _on_deal_attack_timer_timeout():
 	$deal_attack_timer.stop()
@@ -179,8 +174,6 @@ func update_health():
 		if is_regin_health_timer_start:
 			is_regin_health_timer_start=false
 			$regin_health.stop()
-		
-	
 
 func _on_regin_health_timeout():
 	health+=1
