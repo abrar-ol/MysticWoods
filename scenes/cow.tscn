@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://coiaof51h12ca"]
+
+[ext_resource type="Texture2D" uid="uid://o4w4glrpdk0f" path="res://assets/characters/Free Cow Sprites.png" id="1_sdyuc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8emr"]
+size = Vector2(23, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkp0r"]
+atlas = ExtResource("1_sdyuc")
+region = Rect2(0, 8, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6qcj"]
+atlas = ExtResource("1_sdyuc")
+region = Rect2(32, 8, 32, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mf33a"]
+atlas = ExtResource("1_sdyuc")
+region = Rect2(64, 8, 32, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k6r1w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkp0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6qcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mf33a")
+}],
+"loop": true,
+"name": &"idle_enhanced",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0xu4g"]
+radius = 17.0294
+
+[node name="Cow" type="StaticBody2D"]
+z_index = 1
+y_sort_enabled = true
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -3.5)
+shape = SubResource("RectangleShape2D_i8emr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -9)
+sprite_frames = SubResource("SpriteFrames_k6r1w")
+animation = &"idle_enhanced"
+autoplay = "idle_enhanced"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -14)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_0xu4g")

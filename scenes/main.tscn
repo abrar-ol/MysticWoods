@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://sii7iki2tmdb"]
+[gd_scene load_steps=14 format=3 uid="uid://sii7iki2tmdb"]
 
 [ext_resource type="Texture2D" uid="uid://cohc3ny0omtct" path="res://assets/tilesets/grass.png" id="1_3dn0b"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_c0l6d"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://d3dmxh1qxhwsx" path="res://assets/objects/objects.png" id="2_1q883"]
 [ext_resource type="Texture2D" uid="uid://cdg00sq253ncc" path="res://assets/tilesets/plains.png" id="3_d46th"]
 [ext_resource type="PackedScene" uid="uid://b017n8ogbo2qe" path="res://scenes/enemy.tscn" id="5_y21jn"]
+[ext_resource type="PackedScene" uid="uid://coiaof51h12ca" path="res://scenes/cow.tscn" id="7_xix1y"]
+[ext_resource type="PackedScene" uid="uid://cyr0gjl0k6j6i" path="res://scenes/sign.tscn" id="8_mdy16"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_42srx"]
 size = Vector2(74, 40)
@@ -195,7 +197,7 @@ script = ExtResource("1_c0l6d")
 metadata/_edit_horizontal_guides_ = [846.0]
 
 [node name="Player" parent="." instance=ExtResource("1_vq8q0")]
-position = Vector2(-517, -3)
+position = Vector2(-418, -4)
 
 [node name="camera" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)
@@ -234,7 +236,7 @@ shape = SubResource("RectangleShape2D_42srx")
 
 [node name="TileMap2" type="TileMap" parent="."]
 y_sort_enabled = true
-position = Vector2(-7, -7)
+position = Vector2(7, -7)
 tile_set = SubResource("TileSet_vnapb")
 format = 2
 layer_0/name = "ground"
@@ -244,7 +246,13 @@ layer_1/tile_data = PackedInt32Array(-1114132, 131075, 5, -1048596, 131075, 5, -
 layer_2/name = "ysort"
 layer_2/y_sort_enabled = true
 layer_2/z_index = 1
-layer_2/tile_data = PackedInt32Array(131038, 5, 0, -917527, 5, 5, -786461, 5, 5, -196634, 5, 5, -655388, 524293, 6, -917529, 524293, 6, -196622, 524293, 6, -131100, 524293, 6, 65507, 327685, 0, -393238, 327685, 0, -655371, 327685, 0, -10, 327685, 0, -655393, 524293, 6, -589856, 393221, 7, -524321, 655365, 7, -1114128, 393221, 7, -1048591, 655365, 7, -1114126, 524293, 6, -1048595, 655365, 7, -196624, 655365, 7, -589848, 655365, 7, -196639, 655365, 7, -65570, 393221, 7, 131041, 393221, 7, -65558, 5, 1, -851994, 5, 1, -655370, 5, 1, -1114122, 5, 1, -655366, 5, 5, -720900, 655365, 7, -851971, 524293, 6, -655363, 5, 1, -720897, 524293, 6, -917504, 655365, 7, -655358, 5, 5, -983042, 524293, 6, -1048575, 5, 5, 458745, 5, 1, -262150, 5, 5, -6, 524293, 6, -327685, 327685, 0, -196613, 5, 1, -65539, 5, 5, -327681, 524293, 6, 131071, 524293, 6, -65536, 655365, 7, -393215, 655365, 7, 458753, 5, 5, -196606, 5, 5, 131075, 5, 5, 458746, 524293, 6, -196626, 5, 5, -589839, 5, 5, -1179654, 5, 0, -1114116, 5, 5, -917511, 655365, 7, -1048584, 655365, 7)
+layer_2/tile_data = PackedInt32Array(-917527, 5, 5, -786461, 5, 5, -196634, 5, 5, -655388, 524293, 6, -917529, 524293, 6, -196622, 524293, 6, -131100, 524293, 6, 65507, 327685, 0, -393238, 327685, 0, -655371, 327685, 0, -10, 327685, 0, -655393, 524293, 6, -589856, 393221, 7, -524321, 655365, 7, -1114128, 393221, 7, -1048591, 655365, 7, -1114126, 524293, 6, -1048595, 655365, 7, -196624, 655365, 7, -589848, 655365, 7, -196639, 655365, 7, -65570, 393221, 7, 131041, 393221, 7, -65558, 5, 1, -851994, 5, 1, -655370, 5, 1, -1114122, 5, 1, -655366, 5, 5, -720900, 655365, 7, -851971, 524293, 6, -655363, 5, 1, -720897, 524293, 6, -917504, 655365, 7, -655358, 5, 5, -983042, 524293, 6, -1048575, 5, 5, 458745, 5, 1, -262150, 5, 5, -6, 524293, 6, -327685, 327685, 0, -196613, 5, 1, -65539, 5, 5, -327681, 524293, 6, 131071, 524293, 6, -65536, 655365, 7, -393215, 655365, 7, 458753, 5, 5, -196606, 5, 5, 131075, 5, 5, 458746, 524293, 6, -196626, 5, 5, -589839, 5, 5, -1179654, 5, 0, -1114116, 5, 5, -917511, 655365, 7, -1048584, 655365, 7)
+
+[node name="Cow" parent="." instance=ExtResource("7_xix1y")]
+position = Vector2(-472, -8)
+
+[node name="Sign" parent="." instance=ExtResource("8_mdy16")]
+position = Vector2(-531, 14)
 
 [connection signal="body_entered" from="cliffside_transition_area" to="." method="_on_cliffside_transition_area_body_entered"]
 [connection signal="body_exited" from="cliffside_transition_area" to="." method="_on_cliffside_transition_area_body_exited"]
