@@ -24,7 +24,8 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 directories/dch_directory={
 "axe_character": "res://dialogic/characters/axe_character.dch",
-"cow": "res://dialogic/characters/cow.dch"
+"cow": "res://dialogic/characters/cow.dch",
+"sword_character": "res://dialogic/characters/sword_character.dch"
 }
 directories/dtl_directory={
 "cow_timeline": "res://dialogic/timelines/cow_timeline.dtl"

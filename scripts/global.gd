@@ -9,6 +9,7 @@ var player_exit_cliffside_posx = -120
 var player_exit_cliffside_posy = -282
 var player_start_posx = -418
 var player_start_posy = -4
+var is_player_speak_to_cow = false
 
 var is_first_game_loadin = true
 

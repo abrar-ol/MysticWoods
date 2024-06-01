@@ -3,5 +3,14 @@ join cow 1
 cow: Can I help you?
 - What a cow!
 	Yes, I'm not a normal cow
+	- OK! what do you have
 	let me give you this axe,  will help you to crack the rocks
-- Yes, what do you have?
+	join axe_character 3
+	and make sure to distroy any blue creature in your way!
+	use this sword - click e
+	leave axe_character
+	join sword_character 3
+	- Thank You!
+
+- WHAAAAATT!!!!
+	I can not help you sorry, you are not brave!
